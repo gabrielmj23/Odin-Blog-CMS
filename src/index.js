@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Components
 import App from './App';
+import Posts from './routes/Posts';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -12,7 +13,12 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}>
-
+          < Route index element={<Posts />} />
+          <Route path='*' element={
+              <main className='mt-5 text-center'>
+                <h4>There's nothing here.</h4>
+              </main>
+            } />
         </Route>
       </Routes>
     </BrowserRouter>
