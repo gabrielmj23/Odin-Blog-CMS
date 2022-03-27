@@ -39,7 +39,7 @@ function ListGroup(props) {
                     })
                   }</p>
                 </div>
-                <PostButtons postId={post._id} visible={post.visible}/>
+                <PostButtons post={post}/>
               </dd>
             </div>
           ))
