@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // Components
 import App from './App';
 import Posts from './routes/Posts';
+import PostView from './routes/PostView';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route index element={<Posts />} />
+          <Route path='/posts/:postId' element={<PostView />} />
           <Route path='*' element={
               <main className='mt-5 text-center'>
                 <h4>There's nothing here.</h4>
