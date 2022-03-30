@@ -10,7 +10,7 @@ function PostUpdate() {
   useEffect(() => {
     // Fetch post info to fill post form
     const fetchPost = async () => {
-      const url = `http://gabrielm-odin-blog-api.herokuapp.com/api/posts/${params.postId}`;
+      const url = `https://gabrielm-odin-blog-api.herokuapp.com/api/posts/${params.postId}`;
       try {
         const response = await fetch(url, {
           method: 'GET',

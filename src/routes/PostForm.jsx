@@ -26,8 +26,8 @@ function PostForm(props) {
   // Function to PUT or POST (update or create) through API
   const submitPost = async () => {
     const url = props.update ?
-      `http://gabrielm-odin-blog-api.herokuapp.com/api/posts/${params.postId}` :
-      'http://gabrielm-odin-blog-api.herokuapp.com/api/posts';
+      `https://gabrielm-odin-blog-api.herokuapp.com/api/posts/${params.postId}` :
+      'https://gabrielm-odin-blog-api.herokuapp.com/api/posts';
 
     const fetchBody = {
       title: title,
@@ -79,6 +79,7 @@ function PostForm(props) {
         }}
         type='text'
         placeholder='Post title'
+        required
         onChange={e => setTitle(e.target.value)}
         value={title}
         />
@@ -92,6 +93,7 @@ function PostForm(props) {
         style={{
           width: '100%'
         }}
+        required
         onChange={e => setDescription(e.target.value)}
         value={description}
         ></textarea>
@@ -105,6 +107,7 @@ function PostForm(props) {
         style={{
           width: '100%'
         }}
+        required
         onChange={e => setBody(e.target.value)}
         value={body}
         ></textarea>

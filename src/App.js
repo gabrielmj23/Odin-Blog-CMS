@@ -1,6 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+
+  // Check if user is logged in
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
     <div>
       <header>

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Components
 import App from './App';
+import LogIn from './routes/LogIn';
 import Posts from './routes/Posts';
 import PostCreate from './routes/PostCreate';
 import PostView from './routes/PostView';
@@ -15,6 +16,7 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path='/login' element={<LogIn />} />
         <Route path='/' element={<App />}>
           <Route index element={<Posts />} />
           <Route path='/posts/new' element={<PostCreate />} />
