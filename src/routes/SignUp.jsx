@@ -1,52 +1,20 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function LogIn() {
-  const navigate = useNavigate();
-
-  // User state variables
+function SignUp() {
+  // State for user info
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [confirmation, setConfirmation] = useState('');
+  const [errors, setErrors] = useState([]);
 
-  // Function to log user in on form submission
-  const loginUser = async () => {
-    const url = 'https://gabrielm-odin-blog-api.herokuapp.com/api/login';
-    const fetchBody = {
-      username: username,
-      password: password
-    };
+  // Function to sign up user on form submission
+  const signupUser = async () => {
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fetchBody)
-      });
-
-      const data = await response.json();
-
-      // Log in successful
-      if (response.status === 200) {
-        setError('');
-        localStorage.setItem('user', JSON.stringify({
-          username: data.user.username,
-          token: data.token
-        }));
-        navigate('/');
-      } else {
-        // Show error message
-        setError(data.message);
-      }
-      return false;
-    } catch (err) {
-      console.log('Error: ', err);
-    }
   }
 
   const handleSubmit = (e) => {
-    loginUser();
+    signupUser();
     e.preventDefault();
   }
 
@@ -93,10 +61,17 @@ function LogIn() {
             </div>
             <button className='btn btn-primary mb-2' type='submit'>Log in</button>
             {
-              error.length > 0 &&
-                (<p className='text-danger'>{error}</p>)
+              errors.length > 0 &&
+                (
+                  <ul>
+                    {errors.map((error, index) => (
+                      <li className='text-danger' key={index}>{error.msg}</li>
+                    ))
+                    }
+                  </ul>
+                )
             }
-            <p>Don't have an account? <Link to='/signup'>Sign up</Link>.</p>
+            <p>Already have an account? <Link to='/login'>Log in</Link>.</p>
           </form>
         </div>
 
@@ -106,4 +81,4 @@ function LogIn() {
   )
 }
 
-export default LogIn;
+export default SignUp;

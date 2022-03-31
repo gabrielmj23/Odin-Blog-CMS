@@ -7,27 +7,34 @@ function DeleteAllButton(props) {
   const [status, setStatus] = useState(0);
 
   // Function to delete all comments
-  const handleClick = async () => {
+  const deleteComments = async () => {
     const url = `https://gabrielm-odin-blog-api.herokuapp.com/api/posts/${params.postId}/comments`;
 
     // Fetch API 
-    // Authorization not implemented yet
     try {
       const response = await fetch(url, {
         method: 'DELETE',
-        mode: 'cors'
+        mode: 'cors',
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        }
       });
 
-      setStatus(response.status);
-
       // Reload on success
-      if (status === 200) {
-        setStatus(0);
+      if (response.status === 200) {
         window.location.reload(false);
       }
+
+      // Save fetch status code
+      setStatus(response.status);
     } catch (err) {
       console.log('Error: ', err);
     }
+  }
+
+  const handleClick = (e) => {
+    deleteComments();
+    e.preventDefault();
   }
 
   if (status !== 0 && status !== 200) {
@@ -35,7 +42,7 @@ function DeleteAllButton(props) {
       <div>
         <button 
         className='btn btn-danger' 
-        onClick={() => handleClick()}>
+        onClick={(e) => {handleClick(e)}}>
           Delete all comments
         </button>
         <p className='text-danger'>Something went wrong</p>
@@ -44,7 +51,11 @@ function DeleteAllButton(props) {
   }
 
   return (
-    <button className='btn btn-danger'>Delete all comments</button>
+    <button 
+    className='btn btn-danger'
+    onClick={(e) => {handleClick(e)}}>
+      Delete all comments
+    </button>
   )
 }
 

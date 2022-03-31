@@ -14,7 +14,10 @@ function PostButtons(props) {
     try {
       const response = await fetch(url, {
         method: 'DELETE',
-        mode: 'cors'
+        mode: 'cors',
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        }
       });
       const status = response.status;
       setStatus(status);
@@ -35,12 +38,14 @@ function PostButtons(props) {
     }
 
     // Fetch API to update post
-    // Authorization not implemented yet
     try {
       const response = await fetch(url, {
         method: 'PUT',
         mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        },
         body: JSON.stringify(body)
       });
       const status = response.status;

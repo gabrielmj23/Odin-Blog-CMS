@@ -36,16 +36,20 @@ function PostUpdate() {
 
         <div className='col-8'>
           {
-            status !== 200 ? 
-              (
-                <p className='text-center text-danger'>Post not found</p>
-              ) :
+            status === 200 ? 
               (
                 <div>
-                  <h2 className='text-center mb-4'>Update Post</h2>
-                  <PostForm update={true} post={post} />
+                    <h2 className='text-center mb-4'>Update Post</h2>
+                    <PostForm update={true} post={post} />
                 </div>
-              )
+              ) :
+              status === 0 ?
+                (
+                  <p className='text-center text-primary'>Loading...</p>
+                ) :
+                (
+                  <p className='text-center text-danger'>Post not found</p>
+                )
           }
         </div>
 

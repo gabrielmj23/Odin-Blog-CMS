@@ -13,19 +13,28 @@ function CommentButtons(props) {
     try {
       const response = await fetch(url, {
         method: 'DELETE',
-        mode: 'cors'
+        mode: 'cors',
+        headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        }
       });
-  
-      setStatus(response.status);
-  
+
       // Reload on success
-      if (status === 200) {
-        setStatus(0);
+      if (response.status === 200) {
         window.location.reload(false);
       }
+
+      // Save fetch status code
+      setStatus(response.status);
     } catch (err) {
       console.log('Error: ', err);
     }
+  }
+
+  // Click handler
+  const handleClick = (e) => {
+    deleteComment();
+    e.preventDefault();
   }
 
   return (
@@ -36,7 +45,7 @@ function CommentButtons(props) {
         </Link>
         <button 
         className='btn btn-danger'
-        onClick={() => deleteComment()}>
+        onClick={(e) => {handleClick(e)}}>
           Delete comment
         </button>
       </div>

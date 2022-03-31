@@ -6,7 +6,7 @@ function App() {
 
   // Check if user is logged in
   useEffect(() => {
-    if (!localStorage.getItem('token')) {
+    if (!localStorage.getItem('user')) {
       navigate('/login');
     }
   }, [navigate]);

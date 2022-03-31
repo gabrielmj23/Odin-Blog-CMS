@@ -33,7 +33,8 @@ function PostForm(props) {
       title: title,
       description: description,
       body: body,
-      visible: visible
+      visible: visible,
+      author: JSON.parse(localStorage.getItem('user')).username
     };
 
     try {
@@ -41,7 +42,10 @@ function PostForm(props) {
       const response = await fetch(url, {
         method: props.update ? 'PUT' : 'POST',
         mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+        },
         body: JSON.stringify(fetchBody)
       });
 
@@ -59,9 +63,6 @@ function PostForm(props) {
   }
 
   const handleSubmit = (e) => {
-    setVisible(
-      e.target.visible === 'on' ? true : false
-    )
     submitPost();
     e.preventDefault();
   }
@@ -118,7 +119,7 @@ function PostForm(props) {
         className='form-check-input'
         type='checkbox'
         id='visible'
-        checked={visible}
+        onChange={() => setVisible(!visible)}
         />
         <label className='form-check-label' htmlFor='visible'>Visible (published)</label>
       </div>
