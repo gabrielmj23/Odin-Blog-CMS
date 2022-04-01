@@ -23,27 +23,32 @@ function ListGroup(props) {
     return (
       <dl className='list-group mt-3 text-start'>
         {
-          props.data.posts.map((post) => (
-            <div className='list-group-item' key={post._id}>
-              <dt>
-                <h5 className='fw-bold'>{post.title}</h5>
-              </dt>
-              <dd className='row'>
-                <div className='col-6'>
-                  <p>{post.description}</p>
-                  <p className='text-muted'>Posted on {
-                    new Date(post.timestamp).toLocaleDateString('en-us', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric'
-                    })
-                  }</p>
+          props.data.posts.map((post) =>
+            // Only show posts where author matches user
+            post.author === JSON.parse(localStorage.getItem('user')).username ?
+              (
+                <div className='list-group-item' key={post._id}>
+                  <dt>
+                    <h5 className='fw-bold'>{post.title}</h5>
+                  </dt>
+                  <dd className='row'>
+                    <div className='col-6'>
+                      <p>{post.description}</p>
+                      <p className='text-muted'>Posted on {
+                        new Date(post.timestamp).toLocaleDateString('en-us', {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        })
+                      }</p>
+                    </div>
+                    <PostButtons post={post}/>
+                  </dd>
                 </div>
-                <PostButtons post={post}/>
-              </dd>
-            </div>
-          ))
+              ) :
+              null
+          )
         }
       </dl>
     )
