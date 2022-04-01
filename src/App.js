@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+import checkLogin from "./checkLogin";
 
 function App() {
   const navigate = useNavigate();
 
   // Check if user is logged in
   useEffect(() => {
-    if (!localStorage.getItem('user')) {
-      navigate('/login');
+    if (!checkLogin()) {
+      return navigate('/login');
     }
   }, [navigate]);
 

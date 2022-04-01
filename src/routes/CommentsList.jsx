@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import checkLogin from "../checkLogin";
 import CommentButtons from "./CommentButtons";
 
 function DeleteAllButton(props) {
   const params = useParams();
+  const navigate = useNavigate();
   const [status, setStatus] = useState(0);
 
   // Function to delete all comments
@@ -33,6 +35,11 @@ function DeleteAllButton(props) {
   }
 
   const handleClick = (e) => {
+    // Check if JWT is valid on click
+    if (!checkLogin()) {
+      return navigate('/login');
+    }
+
     deleteComments();
     e.preventDefault();
   }

@@ -1,12 +1,22 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import checkLogin from '../checkLogin';
 
 function SignUp() {
+  const navigate = useNavigate();
+
   // State for user info
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    // Send to home page if user is already logged in
+    if (checkLogin) {
+      return navigate('/');
+    }
+  })
 
   // Function to sign up user on form submission
   const signupUser = async () => {

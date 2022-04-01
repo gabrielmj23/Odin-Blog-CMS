@@ -1,16 +1,23 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import checkLogin from '../checkLogin';
 
 function PostButtons(props) {
+  const navigate = useNavigate();
+
   // State to keep http responses from fetch operations
   const [status, setStatus] = useState(0);
 
   // Function to perform post deletion
   const deletePost = async () => {
+    // Check if JWT is valid on deletion attempt
+    if (!checkLogin()) {
+      return navigate('/login');
+    }
+
     const url = `https://gabrielm-odin-blog-api.herokuapp.com/api/posts/${props.post._id}`;
 
     // Fetch API to delete post
-    // Authorization not implemented yet
     try {
       const response = await fetch(url, {
         method: 'DELETE',
@@ -28,6 +35,12 @@ function PostButtons(props) {
 
   // Function to change post visibility
   const changeVisible = async () => {
+    // Check if JWT is valid on click
+    if (!checkLogin()) {
+      return navigate('/login');
+    }
+
+    // Fetch data
     const url = `https://gabrielm-odin-blog-api.herokuapp.com/api/posts/${props.post._id}`;
     const body = {
       title: props.post.title,
@@ -77,7 +90,7 @@ function PostButtons(props) {
         }}
         onClick={() => {changeVisible()}}>
           {
-          props.post.visible ? (<span>Unpublish post</span>) : (<span>Publish post</span>)
+            props.post.visible ? (<span>Unpublish post</span>) : (<span>Publish post</span>)
           }
         </button>
       </div>

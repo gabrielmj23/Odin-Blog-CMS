@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import checkLogin from '../checkLogin';
 
 function CommentButtons(props) {
   const params = useParams();
+  const navigate = useNavigate();
 
   // Comment delete handler
   const [status, setStatus] = useState(0);
@@ -33,6 +35,11 @@ function CommentButtons(props) {
 
   // Click handler
   const handleClick = (e) => {
+    // Check if JWT is valid on click
+    if (!checkLogin()) {
+      return navigate('/login');
+    }
+
     deleteComment();
     e.preventDefault();
   }

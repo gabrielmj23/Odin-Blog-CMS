@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import checkLogin from '../checkLogin';
 import CommentsList from './CommentsList';
 
 function PostView() {
   const params = useParams();
+  const navigate = useNavigate();
   const [status, setStatus] = useState('');
   const [data, setData] = useState('');
 
   useEffect(() => {
+    // Check if JWT is valid
+    if (!checkLogin) {
+      return navigate('/login');
+    }
+
     // Fetch post info from API
     const url = `https://gabrielm-odin-blog-api.herokuapp.com/api/posts/${params.postId}`;
 
@@ -28,7 +35,7 @@ function PostView() {
     }
 
     fetchPost();
-  }, [params.postId]);
+  }, [params.postId, navigate]);
 
   if (data.length < 1) {
     // Still fetching data

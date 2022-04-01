@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import checkLogin from '../checkLogin';
 
 function PostForm(props) {
   // For routing
@@ -62,7 +63,13 @@ function PostForm(props) {
     }
   }
 
+  // Submit handler
   const handleSubmit = (e) => {
+    // Check if JWT is still valid on form submission
+    if (!checkLogin()) {
+      return navigate('/login');
+    }
+
     submitPost();
     e.preventDefault();
   }

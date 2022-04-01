@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import checkLogin from '../checkLogin';
 
 function LogIn() {
   const navigate = useNavigate();
@@ -8,6 +9,13 @@ function LogIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    // Send to home page if user is already logged in
+    if (checkLogin) {
+      return navigate('/');
+    }
+  })
 
   // Function to log user in on form submission
   const loginUser = async () => {

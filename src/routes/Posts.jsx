@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import checkLogin from '../checkLogin';
 import PostButtons from './PostButtons';
 
 function ListGroup(props) {
@@ -50,10 +51,18 @@ function ListGroup(props) {
 }
 
 function Posts() {
+  const navigate = useNavigate();
+
+  // Component state
   const [status, setStatus] = useState(0);
   const [data, setData] = useState('');
 
   useEffect(() => {
+    // Check if JWT is valid
+    if (!checkLogin()) {
+      return navigate('/login');
+    } 
+
     // Get posts from API
     const url = 'https://gabrielm-odin-blog-api.herokuapp.com/api/posts';
 
@@ -74,7 +83,7 @@ function Posts() {
     }
 
     fetchPosts();
-  }, [])
+  }, [navigate]);
 
   return (
     <div className='container-fluid'>
