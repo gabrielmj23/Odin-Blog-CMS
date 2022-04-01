@@ -1,7 +1,7 @@
 export default function checkLogin() {
   // User is not logged in
   if (!localStorage.getItem('user')) {
-    return false
+    return false;
   }
 
   // Function to get JWT data

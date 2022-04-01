@@ -91,7 +91,10 @@ function Posts() {
         <div className='col-1'></div>
 
         <div className='col-10 text-center'>
-          <h3>Welcome, {JSON.parse(localStorage.getItem('user')).username}!</h3>
+          {localStorage.getItem('user') ? 
+            (<h3>Welcome, {JSON.parse(localStorage.getItem('user')).username}</h3>) :
+            (<h3>Welcome, blogger!</h3>)
+          }
           <h5>Here are your posts</h5>
           <div className='text-end' style={{width: '92%'}}>
             <Link to={`/posts/new`}>

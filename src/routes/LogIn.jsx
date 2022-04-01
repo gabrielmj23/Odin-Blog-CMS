@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import checkLogin from '../checkLogin';
 
 function LogIn() {
   const navigate = useNavigate();
@@ -10,15 +9,9 @@ function LogIn() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    // Send to home page if user is already logged in
-    if (checkLogin) {
-      return navigate('/');
-    }
-  })
-
   // Function to log user in on form submission
   const loginUser = async () => {
+    // Fetch info
     const url = 'https://gabrielm-odin-blog-api.herokuapp.com/api/login';
     const fetchBody = {
       username: username,
