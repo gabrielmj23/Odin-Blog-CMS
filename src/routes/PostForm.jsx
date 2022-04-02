@@ -96,8 +96,8 @@ function PostForm(props) {
       <div className='form-group mb-3'>
         <label htmlFor='description'>Description (max. 100 characters): </label><br/>
         <textarea
-        id='content'
-        name='content'
+        id='description'
+        name='description'
         style={{
           width: '100%'
         }}
@@ -111,7 +111,7 @@ function PostForm(props) {
         <label htmlFor='body'>Body: </label><br/>
         <textarea
         id='body'
-        name='content'
+        name='body'
         style={{
           width: '100%'
         }}

@@ -9,6 +9,7 @@ import SignUp from './routes/SignUp';
 import Posts from './routes/Posts';
 import PostCreate from './routes/PostCreate';
 import PostView from './routes/PostView';
+import CommentEdit from './routes/CommentEdit';
 import PostUpdate from './routes/PostUpdate';
 
 import reportWebVitals from './reportWebVitals';
@@ -22,7 +23,10 @@ ReactDOM.render(
         <Route path='/' element={<App />}>
           <Route index element={<Posts />} />
           <Route path='/posts/new' element={<PostCreate />} />
-          <Route path='/posts/:postId' element={<PostView />} />
+          <Route path='/posts/:postId'> 
+            <Route index element={<PostView />} />
+            <Route path='comments/:commentId' element={<CommentEdit />} />
+          </Route>
           <Route path='/posts/:postId/update' element={<PostUpdate />} />
           <Route path='*' element={
               <main className='mt-5 text-center'>

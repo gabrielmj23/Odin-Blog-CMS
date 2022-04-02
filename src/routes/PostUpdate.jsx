@@ -4,6 +4,8 @@ import PostForm from './PostForm';
 
 function PostUpdate() {
   const params = useParams();
+
+  // States for fetched post
   const [status, setStatus] = useState(0);
   const [post, setPost] = useState({});
 
